@@ -1,81 +1,62 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Contacts from './Contacts/Contacts.jsx';
 import { Filter } from './Filter/Filter.jsx';
-import Form from './Form/Form.jsx';
+import { Form } from './Form/Form.jsx';
 
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+export const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  componentDidMount() {
+  //[] -> componentDidMount
+  useEffect(() => {
     const savedContacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(savedContacts);
     if (parsedContacts) {
-      this.setState({
-        contacts: parsedContacts,
-      });
+      setContacts(parsedContacts);
     }
-    // console.log('componentDidMount');
-  }
+    console.log('mounting phase');
+  }, []);
 
-  componentDidUpdate(prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-      // console.log('componentDidUpdate');
-    }
-  }
+  //[value] -> componentDidUpdate
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    console.log('contacts changed');
+  }, [contacts]);
 
-  addContact = newContact => {
-    this.setState({
-      contacts: [...this.state.contacts, newContact],
-    });
+  const addContact = newContact => {
+    setContacts([...contacts, newContact]);
   };
 
-  deleteContact = idToDelete => {
-    // const { contacts } = this.state;
-    const deletedContact = this.state.contacts.find(
-      ({ id }) => id === idToDelete
-    ).name;
-    const contactsWithoutDeleted = this.state.contacts.filter(
+  const deleteContact = idToDelete => {
+    const deletedContact = contacts.find(({ id }) => id === idToDelete);
+    const contactsWithoutDeleted = contacts.filter(
       contact => contact.id !== idToDelete
     );
-    this.setState({
-      contacts: [...contactsWithoutDeleted],
-    });
+
+    setContacts([...contactsWithoutDeleted]);
     console.log(`${deletedContact} was deleted.`);
   };
 
-  handleFilter = event => {
-    this.setState({
-      filter: event.currentTarget.value,
-    });
+  const handleFilter = event => {
+    setFilter(event.currentTarget.value);
   };
 
-  filterContacts = () => {
-    const { filter, contacts } = this.state;
+  const filterContacts = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
-  render() {
-    const { contacts, filter } = this.state;
-    const filteredContacts = this.filterContacts();
+  const filteredContacts = filterContacts();
 
-    return (
-      <div className="app">
-        <h2>Phonebook</h2>
-        <Form contacts={contacts} addContact={this.addContact} />
-        <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.handleFilter} />
-        <Contacts
-          contacts={filteredContacts}
-          deleteContact={this.deleteContact}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="app">
+      <h2>Phonebook</h2>
+      <Form contacts={contacts} addContact={addContact} />
+      <h2>Contacts</h2>
+      <Filter value={filter} onChange={handleFilter} />
+      <Contacts contacts={filteredContacts} deleteContact={deleteContact} />
+    </div>
+  );
+};
