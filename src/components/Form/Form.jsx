@@ -1,11 +1,17 @@
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/actions.js';
+import { getContacts } from 'redux/selectors.js';
 const { useState } = require('react');
 
-export const Form = ({ addContact, contacts }) => {
+export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  //REDUX
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -26,11 +32,6 @@ export const Form = ({ addContact, contacts }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // const { name, number } = this.state;
-    // const { addContact, contacts } = this.props;
-
-    //log whats been set by handleChange
-    console.log(`Name: ${name}, number: ${number}`);
 
     const newContact = {
       name: name,
@@ -43,19 +44,15 @@ export const Form = ({ addContact, contacts }) => {
     contacts.forEach(contact => {
       if (contact.name.toLowerCase() === newContact.name.toLowerCase()) {
         Notify.info(`${newContact.name} is already in your phonebook.`);
-        // return;
         isContactAlready = true;
       }
-      // } else {
-      //   console.log('esle');
-      //   addContact(newContact);
-      // }
     });
 
     if (!isContactAlready) {
-      addContact(newContact);
-    } else {
-      Notify.info('This contact already exists.');
+      dispatch(addContact(newContact));
+      Notify.info(
+        `Done, ${name} with number ${number} was added to the phonebook.`
+      );
     }
 
     resetState();
@@ -67,28 +64,29 @@ export const Form = ({ addContact, contacts }) => {
     setNumber('');
   };
 
-  const nameID = nanoid();
-  const numberID = nanoid();
+  // const nameID = nanoid();
+  // const numberID = nanoid();
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor={nameID}>
+      <label>
         Name:
         <input
-          id={nameID}
+          // id={nameID}
           value={name}
           onChange={handleChange}
           type="text"
           name="name"
+          autoComplete="off"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
       </label>
-      <label htmlFor={numberID}>
+      <label>
         Phone number:
         <input
-          id={numberID}
+          // id={numberID}
           value={number}
           onChange={handleChange}
           type="tel"
@@ -101,15 +99,4 @@ export const Form = ({ addContact, contacts }) => {
       <button type="submit">Add contact</button>
     </form>
   );
-};
-
-Form.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  addContact: PropTypes.func,
 };
