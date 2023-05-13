@@ -12,5 +12,6 @@ const filterSlice = createSlice({
   },
 });
 
+// Exporting Action Generators and Reducer
 export const { setFilter } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;
