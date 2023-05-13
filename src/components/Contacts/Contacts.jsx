@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors.js';
 import css from './Contacts.module.css';
-import { deleteContact } from 'redux/actions.js';
+import { deleteContact } from 'redux/contactSlice.js';
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Contacts = () => {
       contact.number.replace(/-|\s/g, '').includes(filter.replace(/-|\s/g, ''))
   );
 
-  const deleteContacts = id => dispatch(deleteContact(id));
+  const removeContact = id => dispatch(deleteContact(id));
 
   return (
     <>
@@ -24,7 +24,7 @@ const Contacts = () => {
         {filteredContacts.map(({ id, name, number }) => (
           <li key={id}>
             {name}: {number}
-            <button type="button" onClick={() => deleteContacts(id)}>
+            <button type="button" onClick={() => removeContact(id)}>
               Delete
             </button>
           </li>

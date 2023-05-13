@@ -1,21 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsReducer, filterReducer } from './reducers.js';
+import { contactReducer } from './contactSlice.js';
+import { filterContacts } from './filterSlice.js';
 
-/*
-STORE - contains complete app state
-        - state access methods
-        - action dispatch methods
-*/
+//=============== REDUX TOOLKIT ========================
+export const store = configureStore({
+  reducer: {
+    contacts: contactReducer,
+    filter: filterContacts,
+  },
+});
 
+//=============== JUST REDUX ========================
 // Create a store extenesion to add dev tools
 // const enhancer = devToolsEnhancer;
 // Create store
 // export const store = createStore(rootReducer, enhancer);
-
-// REDUX TOOLKIT
-export const store = configureStore({
-  reducer: {
-    contacts: contactsReducer,
-    filter: filterReducer,
-  },
-});

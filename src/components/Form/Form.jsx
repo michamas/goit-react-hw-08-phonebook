@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/actions.js';
+import { addContact } from 'redux/contactSlice.js';
 import { getContacts } from 'redux/selectors.js';
 const { useState } = require('react');
 
