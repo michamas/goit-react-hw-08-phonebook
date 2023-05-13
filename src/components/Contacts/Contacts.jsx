@@ -7,8 +7,10 @@ const Contacts = () => {
   const dispatch = useDispatch();
   // get array of contacts from reudx state
   const contacts = useSelector(getContacts);
+  // console.log('🚀 ~ contacts:', contacts);
   // get filter from redux state
   const filter = useSelector(getFilter);
+  // console.log('🚀 ~ filter:', filter);
   // determine the array of contacts that need to be displayed
   const filteredContacts = contacts.filter(
     contact =>
