@@ -1,26 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import './App.css';
 import Contacts from './Contacts/Contacts.jsx';
 import { Filter } from './Filter/Filter.jsx';
 import { Form } from './Form/Form.jsx';
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors.js';
+import { saveContactsInLocStorage } from 'utils/handleLocalStorage.js';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const contacts = useSelector(getContacts);
 
-  //[] -> componentDidMount
+  const isMounted = useRef(false);
+
   useEffect(() => {
-    const savedContacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(savedContacts);
-    if (parsedContacts) {
-      setContacts(parsedContacts);
+    if (isMounted.current) {
+      saveContactsInLocStorage(contacts);
     }
-    // console.log('mounting phase');
-  }, []);
+  }, [contacts]);
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-    // console.log('contacts changed');
-  }, [contacts]);
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   return (
     <div className="app">
