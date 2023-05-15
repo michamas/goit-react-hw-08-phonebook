@@ -4,13 +4,13 @@ import Contacts from './Contacts/Contacts.jsx';
 import { Filter } from './Filter/Filter.jsx';
 import { Form } from './Form/Form.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors.js';
+import { selectContacts } from 'redux/selectors.js';
 import { fetchContacts } from 'redux/operations.js';
 
 export const App = () => {
   const dispatch = useDispatch();
   // Get state parts
-  const { isLoading } = useSelector(getContacts);
+  const { isLoading } = useSelector(selectContacts);
 
   // Call the operation
   useEffect(() => {

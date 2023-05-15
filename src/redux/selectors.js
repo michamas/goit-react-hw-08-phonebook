@@ -1,4 +1,4 @@
-export const getContacts = state => {
+export const selectContacts = state => {
   if (state.filter) {
     return state.contacts.items.filter(contact =>
       contact.name.toLowerCase().includes(state.filter.toLowerCase())
@@ -8,8 +8,8 @@ export const getContacts = state => {
   }
 };
 
-export const getIsLoading = state => state.contacts.isLoading;
+export const selectIsLoading = state => state.contacts.isLoading;
 
-export const getError = state => state.contacts.error;
+export const selectError = state => state.contacts.error;
 
-export const getFilter = state => state.filter;
+export const selectFilter = state => state.filter;

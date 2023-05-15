@@ -1,11 +1,11 @@
 import { Notify } from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations.js';
-import { getContacts } from 'redux/selectors.js';
+import { selectContacts } from 'redux/selectors.js';
 
 export const Form = () => {
   //REDUX
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = event => {

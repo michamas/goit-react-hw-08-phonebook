@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors.js';
+import { selectContacts } from 'redux/selectors.js';
 import css from './Contacts.module.css';
 import { deleteContact } from 'redux/operations.js';
 
 const Contacts = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const removeContact = id => dispatch(deleteContact(id));
+  const contacts = useSelector(selectContacts);
+  const removeContact = id => {
+    return dispatch(deleteContact(id));
+  };
 
   return (
     <>
@@ -15,7 +17,13 @@ const Contacts = () => {
           return (
             <li key={contact.id}>
               {contact.name}: {contact.phone}
-              <button type="button" onClick={() => removeContact(contact.id)}>
+              <button
+                type="button"
+                onClick={() => {
+                  console.log(contact.id, contact.name);
+                  removeContact(contact.id);
+                }}
+              >
                 Delete
               </button>
             </li>
