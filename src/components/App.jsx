@@ -1,33 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import Contacts from './Contacts/Contacts.jsx';
 import { Filter } from './Filter/Filter.jsx';
 import { Form } from './Form/Form.jsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors.js';
-import { saveContactsInLocStorage } from 'utils/handleLocalStorage.js';
+import { fetchContacts } from 'redux/operations.js';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+  // Get state parts
+  const { isLoading } = useSelector(getContacts);
 
-  const isMounted = useRef(false);
-
+  // Call the operation
   useEffect(() => {
-    if (isMounted.current) {
-      saveContactsInLocStorage(contacts);
-    }
-  }, [contacts]);
-
-  useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div className="app">
       <h2>Phonebook</h2>
+      {isLoading && <p>Loading...</p>}
+      {/* {error && <p>{error}</p>}
+      <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p> */}{' '}
       <Form />
       <h2>Contacts</h2>
       <Filter />

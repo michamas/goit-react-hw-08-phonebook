@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setFilter } from 'redux/filterSlice.js';
 import css from './Filter.module.css';
+import { debounce } from 'lodash';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const Filter = () => {
           placeholder="search by name"
           id="filter"
           type="search"
-          onChange={handleFilter}
+          onChange={debounce(handleFilter, 500)}
         />
       </label>
     </div>

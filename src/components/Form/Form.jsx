@@ -1,80 +1,37 @@
-import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactSlice.js';
+import { addContact } from 'redux/operations.js';
 import { getContacts } from 'redux/selectors.js';
-const { useState } = require('react');
 
 export const Form = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
   //REDUX
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-
-      default:
-        return;
-    }
-  };
-
   const handleSubmit = event => {
     event.preventDefault();
-
-    const newContact = {
-      name: name,
-      number: number,
-      id: nanoid(),
-    };
-
-    let isContactAlready = false;
-
-    contacts.forEach(contact => {
-      if (contact.name.toLowerCase() === newContact.name.toLowerCase()) {
-        Notify.info(`${newContact.name} is already in your phonebook.`);
-        isContactAlready = true;
-      }
-    });
-
-    if (!isContactAlready) {
-      dispatch(addContact(newContact));
-      Notify.info(
-        `Done, ${name} with number ${number} was added to the phonebook.`
-      );
+    const form = event.target;
+    const name = form.elements.name.value;
+    // const phone = form.elements.phone.value;
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      Notify.failure(`Hey, ${name} is already in the phonebook`);
+    } else {
+      const phone = form.elements.number.value;
+      dispatch(addContact({ name, phone }));
     }
 
-    resetState();
+    form.reset();
   };
-
-  // reset state to initial state
-  const resetState = () => {
-    setName('');
-    setNumber('');
-  };
-
-  // const nameID = nanoid();
-  // const numberID = nanoid();
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Name:
         <input
-          // id={nameID}
-          value={name}
-          onChange={handleChange}
           type="text"
           name="name"
           autoComplete="off"
@@ -86,9 +43,6 @@ export const Form = () => {
       <label>
         Phone number:
         <input
-          // id={numberID}
-          value={number}
-          onChange={handleChange}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
