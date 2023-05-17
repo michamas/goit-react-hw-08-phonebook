@@ -3,13 +3,10 @@ import { selectContacts } from 'redux/selectors.js';
 import css from './Contacts.module.css';
 import { deleteContact } from 'redux/operations.js';
 
-const Contacts = () => {
+const Contacts = ({ id }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const removeContact = id => {
-    return dispatch(deleteContact(id));
-  };
-
+  const removeContact = () => dispatch(deleteContact(id));
   return (
     <>
       <ul className={css.contacts}>
@@ -17,13 +14,7 @@ const Contacts = () => {
           return (
             <li key={contact.id}>
               {contact.name}: {contact.phone}
-              <button
-                type="button"
-                onClick={() => {
-                  console.log(contact.id, contact.name);
-                  removeContact(contact.id);
-                }}
-              >
+              <button type="button" onClick={removeContact}>
                 Delete
               </button>
             </li>
