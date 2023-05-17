@@ -6,7 +6,7 @@ import { Form } from './Form/Form.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors.js';
 import { fetchContacts } from 'redux/operations.js';
-import { ContactList } from './ContactList/ContactList.js';
+// import { ContactList } from './ContactList/ContactList.js';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ export const App = () => {
       <Form />
       <h2>Contacts</h2>
       <Filter />
-      {/* <Contacts /> */}
-      <ContactList />
+      <Contacts />
+      {/* <ContactList /> */}
     </div>
   );
 };
