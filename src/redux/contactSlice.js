@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import { fetchContacts, addContact, deleteContact } from './operations.js';
+import { selectContacts } from './selectors.js';
 const { createSlice } = require('@reduxjs/toolkit');
 
 //=============== REDUX TOOLKIT - SLICE ========================
 
 // const initialContacts = getContactsFromLocStorage();
+
 const initialContacts = {
   items: [],
   isLoading: false,
@@ -40,6 +43,8 @@ const contactSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.items = action.payload;
+      // console.log('🚀 ~ action.payload:', action.payload);
+      // console.log('🚀 ~ state.items:', state.items);
     },
     [addContact.fulfilled](state, action) {
       state.isLoading = false;
@@ -50,7 +55,7 @@ const contactSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(
-        contact => contact.id === action.payload
+        contact => contact.id === action.payload.id
       );
       state.items.splice(index, 1);
     },

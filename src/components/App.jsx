@@ -16,7 +16,7 @@ export const App = () => {
   // Call the operation
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="app">

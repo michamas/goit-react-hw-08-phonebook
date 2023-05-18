@@ -13,6 +13,7 @@ const Contacts = () => {
         {contacts.map(contact => {
           const removeContact = () => {
             dispatch(deleteContact(contact.id));
+            // console.log('Contacs', contact.id);
           };
           return (
             <li key={contact.id}>
