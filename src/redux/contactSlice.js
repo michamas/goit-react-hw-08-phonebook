@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import { fetchContacts, addContact, deleteContact } from './operations.js';
-import { selectContacts } from './selectors.js';
 const { createSlice } = require('@reduxjs/toolkit');
 
 //=============== REDUX TOOLKIT - SLICE ========================
@@ -15,6 +13,7 @@ const initialContacts = {
 
 const handlePending = state => {
   state.isLoading = true;
+  console.log('pending');
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
@@ -31,6 +30,7 @@ const contactSlice = createSlice({
   extraReducers: {
     [fetchContacts.pending](state, action) {
       state.isLoading = true;
+      console.log('fetch - pending');
     },
     [addContact.pending]: handlePending,
     [deleteContact.pending]: handlePending,

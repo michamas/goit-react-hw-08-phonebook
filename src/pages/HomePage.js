@@ -14,7 +14,7 @@ export const HomePage = () => {
   // Call the operation
   useEffect(() => {
     dispatch(fetchContacts());
-  }, []);
+  }, [dispatch]);
 
   return <div>HOME PAGE</div>;
 };

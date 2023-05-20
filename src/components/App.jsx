@@ -14,11 +14,11 @@ import { Filter } from './Filter/Filter.jsx';
 // import { ContactList } from './ContactList/ContactList.js';
 
 export const App = () => {
-  const dispatch = useDispatch();
-  // Call the operation
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // // Call the operation
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return (
     <Routes>
