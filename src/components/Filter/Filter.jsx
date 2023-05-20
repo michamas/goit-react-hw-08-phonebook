@@ -11,15 +11,18 @@ export const Filter = () => {
   };
 
   return (
-    <div className={css.wrapper}>
-      <label htmlFor="filter">
-        <input
-          placeholder="search by name"
-          id="filter"
-          type="search"
-          onChange={debounce(handleFilter, 500)}
-        />
-      </label>
-    </div>
+    <>
+      <h2>Contacts</h2>
+      <div className={css.wrapper}>
+        <label htmlFor="filter">
+          <input
+            placeholder="search by name"
+            id="filter"
+            type="search"
+            onChange={debounce(handleFilter, 500)}
+          />
+        </label>
+      </div>
+    </>
   );
 };
