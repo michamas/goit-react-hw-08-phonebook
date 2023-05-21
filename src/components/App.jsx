@@ -3,10 +3,6 @@ import './App.css';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout.js';
-// import { HomePage } from 'pages/HomePage.js';
-// import { LoginPage } from 'pages/LoginPage.js';
-// import { RegisterPage } from 'pages/RegisterPage.js';
-// import { PhonebookPage } from 'pages/PhonebookPage.js';
 import { refreshUser } from 'redux/auth/operations.js';
 import { useAuth } from './hooks/useAuth.js';
 import { RestrictedRoute } from './RestrictedRoute.js';
@@ -34,17 +30,23 @@ export const App = () => {
         <Route
           path="/register"
           element={
-            <RestrictedRoute redirectTo="/tasks" component={<RegisterPage />} />
+            <RestrictedRoute
+              redirectTo="/phonebook"
+              component={<RegisterPage />}
+            />
           }
         />
         <Route
           path="/login"
           element={
-            <RestrictedRoute redirectTo="/tasks" component={<LoginPage />} />
+            <RestrictedRoute
+              redirectTo="/phonebook"
+              component={<LoginPage />}
+            />
           }
         />
         <Route
-          path="/tasks"
+          path="/phonebook"
           element={
             <PrivateRoute redirectTo="/login" component={<PhonebookPage />} />
           }
