@@ -12,12 +12,13 @@ import { HelmetProvider } from 'react-helmet-async';
 PROVIDER - binds components, 
 so that they can access the store and its methods
 */
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <HelmetProvider>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <BrowserRouter basename="/goit-react-hw-08-phonebook">
             <App />
           </BrowserRouter>
         </HelmetProvider>
