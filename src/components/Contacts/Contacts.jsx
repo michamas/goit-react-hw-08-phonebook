@@ -6,14 +6,12 @@ import { deleteContact } from 'redux/operations.js';
 const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  // const removeContact = () => dispatch(deleteContact(id));
   return (
     <>
       <ul className={css.contacts}>
         {contacts.map(contact => {
           const removeContact = () => {
             dispatch(deleteContact(contact.id));
-            // console.log('Contacs', contact.id);
           };
           return (
             <li key={contact.id}>

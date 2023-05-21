@@ -7,14 +7,14 @@ import { fetchContacts } from 'redux/operations.js';
 import { selectContacts } from 'redux/selectors.js';
 
 export const HomePage = () => {
-  const dispatch = useDispatch();
-  // Get state parts
-  const { isLoading } = useSelector(selectContacts);
+  // const dispatch = useDispatch();
+  // // Get state parts
+  // const { isLoading } = useSelector(selectContacts);
 
-  // Call the operation
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // // Call the operation
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return <div>HOME PAGE</div>;
 };
