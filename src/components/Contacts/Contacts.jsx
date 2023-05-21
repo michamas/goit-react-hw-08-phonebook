@@ -15,7 +15,7 @@ const Contacts = () => {
           };
           return (
             <li key={contact.id}>
-              {contact.name}: {contact.phone}
+              {contact.name}: {contact.number}
               <button type="button" onClick={removeContact}>
                 Delete
               </button>

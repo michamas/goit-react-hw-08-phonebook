@@ -12,7 +12,6 @@ export const Form = () => {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
-    // const number = form.elements.number.value;
     if (
       contacts.some(
         contact => contact.name.toLowerCase() === name.toLowerCase()
