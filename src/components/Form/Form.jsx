@@ -12,7 +12,7 @@ export const Form = () => {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
-    // const phone = form.elements.phone.value;
+    // const number = form.elements.number.value;
     if (
       contacts.some(
         contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -20,8 +20,8 @@ export const Form = () => {
     ) {
       Notify.failure(`Hey, ${name} is already in the phonebook`);
     } else {
-      const phone = form.elements.number.value;
-      dispatch(addContact({ name, phone }));
+      const number = form.elements.number.value;
+      dispatch(addContact({ name, number }));
     }
 
     form.reset();

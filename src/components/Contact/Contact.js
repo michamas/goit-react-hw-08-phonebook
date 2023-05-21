@@ -7,7 +7,7 @@ export const Contact = ({ contact }) => {
   return (
     <div>
       <span>
-        {contact.name}: {contact.phone}
+        {contact.name}: {contact.number}
       </span>
       <button type="button" onClick={removeContact}>
         Delete
