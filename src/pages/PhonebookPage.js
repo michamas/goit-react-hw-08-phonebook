@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Form } from 'components/Form/Form.jsx';
 import { selectContacts } from 'redux/selectors.js';
 
-export const PhonebookPage = () => {
+export default function PhonebookPage() {
   const { isLoading } = useSelector(selectContacts);
 
   return (
@@ -16,4 +16,4 @@ export const PhonebookPage = () => {
       {/* <ContactList /> */}
     </div>
   );
-};
+}

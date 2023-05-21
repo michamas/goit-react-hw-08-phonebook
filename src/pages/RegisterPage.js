@@ -1,9 +1,9 @@
 import { RegisterForm } from 'components/RegisterForm/RegisterForm.js';
 
-export const RegisterPage = () => {
+export default function RegisterPage() {
   return (
     <div>
       <RegisterForm />
     </div>
   );
-};
+}

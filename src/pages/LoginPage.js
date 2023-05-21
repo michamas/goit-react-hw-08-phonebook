@@ -1,9 +1,9 @@
 import { LoginForm } from 'components/LoginForm/LoginForm.js';
 
-export const LoginPage = () => {
+export default function LoginPage() {
   return (
     <div>
       <LoginForm />
     </div>
   );
-};
+}

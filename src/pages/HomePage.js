@@ -6,15 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations.js';
 import { selectContacts } from 'redux/selectors.js';
 
-export const HomePage = () => {
-  // const dispatch = useDispatch();
-  // // Get state parts
-  // const { isLoading } = useSelector(selectContacts);
-
-  // // Call the operation
-  // useEffect(() => {
-  //   dispatch(fetchContacts());
-  // }, [dispatch]);
-
+export default function HomePage() {
   return <div>HOME PAGE</div>;
-};
+}
